@@ -10,7 +10,7 @@ import UIKit
 
 internal class TabView: UIView {
 
-    var pageItemPressedBlock: ((_ index: Int, _ direction: UIPageViewControllerNavigationDirection) -> Void)?
+    var pageItemPressedBlock: ((_ index: Int, _ direction: UIPageViewController.NavigationDirection) -> Void)?
     var pageTabItems: [String] = [] {
         didSet {
             pageTabItemsCount = pageTabItems.count
@@ -302,8 +302,8 @@ extension TabView: UICollectionViewDataSource {
         cell.item = pageTabItems[fixedIndex]
         cell.option = option
         cell.isCurrent = fixedIndex == (currentIndex % pageTabItemsCount)
-        cell.tabItemButtonPressedBlock = { [weak self, weak cell] in
-            var direction: UIPageViewControllerNavigationDirection = .forward
+        cell.tabItemButtonPressedBlock = { [weak self, weak cell] _ in
+            var direction: UIPageViewController.NavigationDirection = .forward
             if let pageTabItemsCount = self?.pageTabItemsCount, let currentIndex = self?.currentIndex {
                 if self?.isInfinity == true {
                     if (indexPath.item < pageTabItemsCount) || (indexPath.item < currentIndex) {
